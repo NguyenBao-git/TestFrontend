@@ -1,0 +1,29 @@
+function isValidPassword(password) {
+    if (password.length < 8) {
+        return false;
+    }
+    
+    let hasUppercase = false;
+    let hasDigit = false;
+    let hasSpecialChar = false;
+    
+    const specialChars = "!@#$%^&*()";
+    
+    for (let char of password) {
+        if (char >= 'A' && char <= 'Z') {
+            hasUppercase = true;
+        } else if (char >= '0' && char <= '9') {
+            hasDigit = true;
+        } else if (specialChars.includes(char)) {
+            hasSpecialChar = true;
+        }
+    }
+    
+    return hasUppercase && hasDigit && hasSpecialChar;
+}
+
+// Test cases
+console.log(isValidPassword("Hello123"));
+console.log(isValidPassword("hello123")); 
+console.log(isValidPassword("Hello123!"));
+console.log(isValidPassword("HELLO@123"));

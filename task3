@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Loader</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #amount{
+            padding: 10px 100px;
+        }
+        #image-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .image-card {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .image-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        button{
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        #load-btn{background-color: blue; color: white;}
+        #clear-btn{color: blueviolet;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <select id="amount">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button id="load-btn">LOAD 🐧</button>
+            <button id="clear-btn">CLEAR</button>
+        </div>
+        <div id="image-container"></div>
+    </div>
+    <script>
+        const images = [
+            {
+            src: 'https://images.dog.ceo/breeds/whippet/n02091134_12318.jpg',
+            alt: 'Brown dog in natural setting'
+            },
+            {
+            src: 'https://images.dog.ceo/breeds/keeshond/n02112350_7368.jpg', 
+            alt: 'Black and white puppy'
+            },
+            {
+            src: 'https://images.dog.ceo/breeds/pomeranian/n02112018_5317.jpg',
+            alt: 'Another dog image'
+            }
+        ];
+
+        const amountSelect = document.getElementById('amount');
+        const loadButton = document.getElementById('load-btn');
+        const clearButton = document.getElementById('clear-btn');
+        const imageContainer = document.getElementById('image-container');
+
+        function loadImages() {
+            imageContainer.innerHTML = '';
+
+            const amount = parseInt(amountSelect.value);
+
+            const shuffledImages = images.sort(() => 0.5 - Math.random());
+            const selectedImages = shuffledImages.slice(0, amount);
+
+            
+            selectedImages.forEach(image => {
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = 'image-card';
+
+                const img = document.createElement('img');
+                img.src = image.src;
+                img.alt = image.alt;
+
+                imgWrapper.appendChild(img);
+                imageContainer.appendChild(imgWrapper);
+            });
+        }
+
+        function clearImages() {
+            imageContainer.innerHTML = '';
+            amountSelect.value = '2'; 
+        }
+
+        loadButton.addEventListener('click', loadImages);
+        clearButton.addEventListener('click', clearImages);
+    </script>
+</body>
+</html>
